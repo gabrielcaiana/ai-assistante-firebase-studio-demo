@@ -17,4 +17,13 @@
 
 ## Original User Request:
 Desenvolva um bot de atendimento para whatsapp com typescript
+
+## Deployment
+
+This project is configured for deployment using AWS Amplify.
+
+1.  **Build the project:** `npm run build`
+2.  **Export the project:** `npm run export`
+
+These commands will generate a static export of your Next.js application in the `out` directory. You can then deploy the contents of the `out` directory to a static hosting service like AWS Amplify.
   

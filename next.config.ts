@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  output: 'export', // Enable static exports
+  images: {
+    unoptimized: true, // Needed to be compatible with static exports
+  },
 };
 
 export default nextConfig;
