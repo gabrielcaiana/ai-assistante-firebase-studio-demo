@@ -40,8 +40,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
             <ReactMarkdown
               children={message.text}
               components={{
-                code({node, inline, className, children, ...props}) {
-                  const match = (className || '').match(/language-(\w+)/);
+                code({node, inline, className = '', children, ...props}) {
+                  const match = className.match(/language-(\w+)/);
                   return !inline && match ? (
                     <SyntaxHighlighter
                       children={String(children).replace(/\n$/, '')}
