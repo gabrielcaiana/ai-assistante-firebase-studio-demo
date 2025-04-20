@@ -16,7 +16,7 @@ const AnswerUserQueryInputSchema = z.object({
 export type AnswerUserQueryInput = z.infer<typeof AnswerUserQueryInputSchema>;
 
 const AnswerUserQueryOutputSchema = z.object({
-  answer: z.string().describe('The answer to the user query.'),
+  answer: z.string().describe('The answer to the user query in Markdown format.'),
 });
 export type AnswerUserQueryOutput = z.infer<typeof AnswerUserQueryOutputSchema>;
 
@@ -33,10 +33,10 @@ const prompt = ai.definePrompt({
   },
   output: {
     schema: z.object({
-      answer: z.string().describe('The answer to the user query.'),
+      answer: z.string().describe('The answer to the user query in Markdown format.'),
     }),
   },
-  prompt: `You are a helpful assistant. Please answer the following user query:\n\nQuery: {{{query}}}`,
+  prompt: `You are a helpful assistant. Please answer the following user query, format your response using markdown:\n\nQuery: {{{query}}}`,
 });
 
 const answerUserQueryFlow = ai.defineFlow<
