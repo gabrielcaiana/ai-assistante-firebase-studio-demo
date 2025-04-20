@@ -16,3 +16,4 @@ export async function GET() {
     return new NextResponse('Error generating initial message', { status: 500 });
   }
 }
+
