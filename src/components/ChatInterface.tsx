@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
+import ReactMarkdown from 'remark-markdown';
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
+import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface ChatInterfaceProps {
   messages: ChatMessage[];
@@ -34,7 +37,27 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                 : "bg-secondary mr-auto w-fit"
             }`}
           >
-            {message.text}
+            <ReactMarkdown
+              children={message.text}
+              components={{
+                code({node, inline, className, children, ...props}) {
+                  const match = (className || '').match(/language-(\w+)/);
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      children={String(children).replace(/\n$/, '')}
+                      style={dark}
+                      language={match[1]}
+                      PreTag="div"
+                      {...props}
+                    />
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                }
+              }}
+            />
           </div>
         ))}
       </div>
