@@ -8,8 +8,18 @@
  * - GenerateInitialMessageOutput - The return type for the generateInitialMessage function.
  */
 
+import path from 'path';
+import { config } from 'dotenv';
 import {ai} from '@/ai/ai-instance';
 import {z} from 'genkit';
+
+config({
+  path: path.resolve(
+    process.cwd(),
+    '.amplify-hosting/compute/default/.env'
+  ),
+});
+
 
 const GenerateInitialMessageInputSchema = z.object({});
 export type GenerateInitialMessageInput = z.infer<typeof GenerateInitialMessageInputSchema>;
