@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { ChatInterface } from "@/components/ChatInterface";
 import { AgentSwitcher } from "@/components/AgentSwitcher";
-import { answerUserQuery } from "@/ai/flows/answer-user-query";
-import { generateInitialMessage } from "@/ai/flows/generate-initial-message";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
@@ -15,8 +13,12 @@ export default function Home() {
   useEffect(() => {
     const getInitialMessage = async () => {
       try {
-        const initialMessage = await generateInitialMessage({});
-        setMessages([{ text: initialMessage.message, sender: "bot" }]);
+        const response = await fetch('/api/generate-initial-message');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch initial message: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setMessages([{ text: data.message, sender: "bot" }]);
       } catch (error: any) {
         toast({
           title: "Error fetching initial message",
@@ -36,8 +38,20 @@ export default function Home() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const response = await answerUserQuery({ query: text });
-      const botMessage: ChatMessage = { text: response.answer, sender: "bot" };
+      const response = await fetch('/api/answer-user-query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: text }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to process message: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const botMessage: ChatMessage = { text: data.answer, sender: "bot" };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error: any) {
       toast({
