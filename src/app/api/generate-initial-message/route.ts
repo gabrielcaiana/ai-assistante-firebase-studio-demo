@@ -3,6 +3,8 @@
 import { generateInitialMessage } from '@/ai/flows/generate-initial-message';
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     console.log('Generating initial message'); // Log that the function is running
