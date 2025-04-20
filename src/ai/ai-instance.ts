@@ -6,7 +6,7 @@ export const ai = genkit({
   promptDir: './prompts',
   plugins: [
     googleAI({
-      apiKey: 'AIzaSyB2d2jr6eMuYIu0tfHthktkuvtHKd1UjZg',
+      apiKey: process.env.GOOGLE_GENAI_API_KEY,
     }),
   ],
   model: 'googleai/gemini-2.0-flash',
