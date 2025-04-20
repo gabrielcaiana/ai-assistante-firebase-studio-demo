@@ -68,7 +68,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Type your message..."
-            className="flex-1 rounded-l-md"
+            className="flex-1 rounded-l-md mr-3"
           />
           <Button type="submit" className="rounded-r-md">
             Send <Send className="ml-2" />
