@@ -9,7 +9,6 @@ frontend:
         - npm run build
     postBuild:
       commands:
-        - mkdir -p .amplify-hosting/compute/default
         - echo "GOOGLE_GENAI_API_KEY=$GOOGLE_GENAI_API_KEY" >> .env
   artifacts:
     baseDirectory: .next
